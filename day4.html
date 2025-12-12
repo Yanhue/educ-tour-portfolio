@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Day 4 – Disaster Preparedness & Going Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #F0F9FF;
+      --bg-soft: #BFE3FC;
+      --accent: #ACAD2B;
+      --accent-soft: rgba(172, 173, 43, 0.22);
+      --text: #28361F;
+      --muted: #596115;
+      --card: #ffffff;
+      --border: rgba(40, 54, 31, 0.18);
+      --radius-xl: 18px;
+      --shadow-soft: 0 18px 45px rgba(40, 54, 31, 0.18);
+    }
+
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body {
+      font-family: system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background: radial-gradient(circle at top, #BFE3FC 0, #F0F9FF 45%, #ACAD2B20 100%);
+      color: var(--text);
+      line-height: 1.6;
+      scroll-behavior:smooth;
+    }
+    img { max-width:100%; display:block; }
+    a { color:inherit; text-decoration:none; }
+
+    main {
+      width:100%;
+      max-width:1120px;
+      margin:0 auto;
+      padding:0 1.2rem 4rem;
+    }
+    section { margin-block:3.5rem; }
+
+    .section-label{
+      text-transform:uppercase;
+      font-size:0.8rem;
+      letter-spacing:0.18em;
+      color:var(--muted);
+      margin-bottom:0.6rem;
+    }
+    .section-title{
+      font-size:clamp(2rem,3vw+1rem,2.6rem);
+      margin-bottom:0.8rem;
+    }
+    .section-subtitle{
+      max-width:640px;
+      color:var(--muted);
+      font-size:0.96rem;
+    }
+
+    /* header */
+    header{
+      position:sticky; top:0; z-index:40;
+      backdrop-filter:blur(18px);
+      background:linear-gradient(to bottom,
+        rgba(240,249,255,0.97),
+        rgba(240,249,255,0.78),
+        transparent);
+      border-bottom:1px solid rgba(172,173,43,0.28);
+    }
+    .nav{
+      max-width:1120px;
+      margin:0 auto;
+      padding:0.7rem 1.2rem;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:1.5rem;
+    }
+    .nav-logo{
+      font-weight:700;
+      letter-spacing:0.12em;
+      text-transform:uppercase;
+      font-size:0.85rem;
+      color:var(--muted);
+    }
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:1rem;
+      font-size:0.88rem;
+    }
+    .nav-links a{
+      padding:0.35rem 0.85rem;
+      border-radius:999px;
+      border:1px solid transparent;
+      color:var(--muted);
+      transition:background 0.2s,border 0.2s,transform 0.15s;
+    }
+    .nav-links a:hover{
+      background:rgba(191,227,252,0.9);
+      border-color:rgba(172,173,43,0.4);
+      transform:translateY(-1px);
+    }
+    @media(max-width:640px){
+      .nav-links{ font-size:0.8rem; }
+    }
+
+    /* hero */
+    .hero-day{
+      padding-top:3rem;
+      display:grid;
+      grid-template-columns:minmax(0,3fr) minmax(0,2.4fr);
+      gap:2.5rem;
+      align-items:center;
+      min-height:55vh;
+    }
+    @media(max-width:860px){
+      .hero-day{
+        grid-template-columns:minmax(0,1fr);
+        padding-top:2.4rem;
+      }
+    }
+    .hero-kicker{
+      font-size:0.8rem;
+      text-transform:uppercase;
+      letter-spacing:0.16em;
+      color:var(--muted);
+      margin-bottom:0.8rem;
+    }
+    .hero-title{
+      font-size:clamp(2.4rem,4vw+1rem,3.1rem);
+      font-weight:800;
+      line-height:1.05;
+      margin-bottom:0.6rem;
+    }
+    .hero-title span{
+      background:linear-gradient(120deg,#596115,#acad2b);
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+    }
+    .hero-text{
+      font-size:0.98rem;
+      color:var(--muted);
+      max-width:520px;
+      margin-bottom:1.3rem;
+    }
+    .hero-meta-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:0.7rem;
+      margin-bottom:1.5rem;
+    }
+    .pill-soft{
+      display:inline-flex;
+      align-items:center;
+      gap:0.35rem;
+      padding:0.26rem 0.7rem;
+      border-radius:999px;
+      background:#ffffff;
+      border:1px solid rgba(172,173,43,0.6);
+      font-size:0.78rem;
+      color:var(--muted);
+    }
+    .pill-dot{
+      width:7px;height:7px;border-radius:50%;
+      background:var(--accent);
+    }
+    .hero-back-link{
+      display:inline-flex;
+      align-items:center;
+      gap:0.35rem;
+      font-size:0.86rem;
+      padding:0.52rem 1rem;
+      border-radius:999px;
+      border:1px solid rgba(172,173,43,0.7);
+      background:#ffffff;
+      color:var(--muted);
+      transition:background 0.2s,transform 0.15s,box-shadow 0.2s;
+    }
+    .hero-back-link:hover{
+      background:#f0f9ff;
+      transform:translateY(-1px);
+      box-shadow:0 10px 26px rgba(40,54,31,0.25);
+    }
+
+    .hero-visual-day{
+      position:relative;
+      border-radius:26px;
+      overflow:hidden;
+      border:1px solid var(--border);
+      box-shadow:var(--shadow-soft);
+      background:radial-gradient(circle at top,#bfe3fc,#f0f9ff 60%);
+      min-height:260px;
+    }
+    .hero-visual-day img{
+      width:100%;height:100%;
+      object-fit:cover;
+      mix-blend-mode:multiply;
+      opacity:0.96;
+    }
+    .hero-visual-label{
+      position:absolute;
+      inset:auto 1rem 1rem 1rem;
+      border-radius:16px;
+      padding:0.7rem 0.85rem;
+      background:rgba(240,249,255,0.98);
+      border:1px solid rgba(172,173,43,0.65);
+      font-size:0.78rem;
+      color:var(--muted);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:0.6rem;
+    }
+
+    /* layout */
+    .day-layout{
+      margin-top:1.5rem;
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:2rem;
+    }
+    @media(max-width:900px){
+      .day-layout{ grid-template-columns:minmax(0,1fr); }
+    }
+
+    .day-timeline{
+      display:flex;
+      flex-direction:column;
+      gap:1rem;
+    }
+    .day-step{
+      display:grid;
+      grid-template-columns:minmax(0,0.9fr) minmax(0,2.1fr);
+      gap:1rem;
+      align-items:flex-start;
+      padding:0.9rem 1rem;
+      border-radius:18px;
+      background:#ffffff;
+      border:1px solid rgba(172,173,43,0.4);
+      box-shadow:0 14px 32px rgba(40,54,31,0.15);
+    }
+    @media(max-width:640px){
+      .day-step{ grid-template-columns:minmax(0,1fr); }
+    }
+    .day-step-img{
+      border-radius:14px;
+      overflow:hidden;
+      background:#e5ecda;
+    }
+    .day-step-img img{
+      width:100%;height:100%;
+      object-fit:cover;
+    }
+    .day-step-body{
+      display:flex;
+      flex-direction:column;
+      gap:0.2rem;
+    }
+    .day-step-time{
+      font-size:0.76rem;
+      letter-spacing:0.12em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+    .day-step-title{ font-size:1rem;font-weight:600; }
+    .day-step-desc{ font-size:0.9rem;color:var(--muted); }
+
+    /* company highlight */
+    .day-step--company{
+      border-width:2px;
+      border-color:var(--accent);
+      background:radial-gradient(circle at top left,#f3f9e7,#ffffff 60%);
+      box-shadow:0 22px 50px rgba(40,54,31,0.25);
+      transform:translateY(-1px);
+    }
+
+    /* Floating left/right day navigation arrows */
+.day-nav-arrow {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1px solid rgba(172, 173, 43, 0.75);
+  box-shadow: 0 14px 30px rgba(40, 54, 31, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  color: var(--muted);
+  z-index: 60;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.day-nav-arrow:hover {
+  background: #f0f9ff;
+  transform: translateY(-50%) scale(1.05);
+  box-shadow: 0 18px 40px rgba(40, 54, 31, 0.35);
+}
+
+.day-nav-left {
+  left: 1.1rem;
+}
+
+.day-nav-right {
+  right: 1.1rem;
+}
+
+@media (max-width: 768px) {
+  .day-nav-arrow {
+    width: 34px;
+    height: 34px;
+    font-size: 1.1rem;
+  }
+  .day-nav-left {
+    left: 0.6rem;
+  }
+  .day-nav-right {
+    right: 0.6rem;
+  }
+}
+
+    .company-section{
+      margin-top:1.2rem;
+      padding-top:1rem;
+      border-top:2px dashed rgba(120,140,80,0.35);
+      display:flex;
+      flex-direction:column;
+      gap:1rem;
+    }
+    .company-meta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:0.5rem;
+      font-size:0.95rem;
+    }
+    .company-name{
+      font-weight:700;
+      color:var(--accent);
+    }
+    .company-facilitator{
+      padding:0.15rem 0.6rem;
+      border-radius:999px;
+      border:1px solid rgba(140,160,100,0.75);
+      background:#f7fce8;
+      font-size:0.8rem;
+      color:var(--muted);
+    }
+    .company-note-label{
+      font-weight:700;
+      font-size:1rem;
+      display:block;
+      margin-bottom:0.25rem;
+      color:var(--text);
+    }
+    .company-note{ line-height:1.6; }
+    .company-info{ font-size:0.86rem;color:var(--muted); }
+
+    /* side card */
+    .day-side-card{
+      border-radius:20px;
+      padding:1.1rem 1.15rem 1.2rem;
+      background:radial-gradient(circle at top,#f0f9ff,#ffffff 65%);
+      border:1px solid var(--border);
+      box-shadow:var(--shadow-soft);
+      display:flex;
+      flex-direction:column;
+      gap:1rem;
+    }
+    .side-section-title{
+      font-size:0.92rem;
+      font-weight:600;
+      margin-bottom:0.15rem;
+    }
+    .side-text{
+      font-size:0.86rem;
+      color:var(--muted);
+    }
+    .side-list{
+      padding-left:1.1rem;
+      font-size:0.86rem;
+      color:var(--muted);
+    }
+    .side-list li{ margin-bottom:0.25rem; }
+
+    .tag-cloud{
+      display:flex;
+      flex-wrap:wrap;
+      gap:0.45rem;
+    }
+    .tag-pill{
+      font-size:0.78rem;
+      padding:0.25rem 0.7rem;
+      border-radius:999px;
+      border:1px solid rgba(172,173,43,0.7);
+      background:#ffffff;
+      color:var(--muted);
+    }
+
+    .divider{
+      height:1px;
+      background:linear-gradient(to right,transparent,rgba(172,173,43,0.9),transparent);
+      margin-top:3rem;
+      opacity:0.9;
+    }
+    .footer{
+      text-align:center;
+      font-size:0.8rem;
+      color:var(--muted);
+      margin-top:1.4rem;
+      padding-bottom:0.5rem;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <nav class="nav">
+    <div class="nav-logo">EDUC TOUR · CEBU / BOHOL</div>
+    <div class="nav-links">
+      <a href="index.html">← Back to Main Portfolio</a>
+      <a href="#timeline">Day 4 Timeline</a>
+    </div>
+  </nav>
+</header>
+<a href="day3.html" class="day-nav-arrow day-nav-left" title="Back to Day 3">‹</a>
+<a href="index.html" class="day-nav-arrow day-nav-right" title="Back to Main Lobby">⌂</a>
+<main>
+  <section class="hero-day">
+    <div>
+      <div class="hero-kicker">Day 4 · Disaster Preparedness & Homecoming</div>
+      <h1 class="hero-title">
+        Learning How a <span>City Stays Safe</span> – Then Heading Home
+      </h1>
+      <p class="hero-text">
+        On our last day, we visited the City Disaster Risk Reduction and Management Office (CDRRM Office) in
+        Tagbilaran, then spent the rest of the day exploring and finally traveling back home.
+      </p>
+      <div class="hero-meta-row">
+        <div class="pill-soft">
+          <span class="pill-dot"></span>
+          CDRRMO Tagbilaran · Bohol tour · Trip home
+        </div>
+        <div class="pill-soft">
+          🚨 Disaster readiness · 🏝️ Last tourist spots · 🧳 Homecoming
+        </div>
+      </div>
+      <a class="hero-back-link" href="index.html">← Back to 4-Day Overview</a>
+    </div>
+
+    <div class="hero-visual-day">
+      <img src="imageday4-hero.jpg" alt="CDRRM office and Bohol streets">
+      <div class="hero-visual-label">
+        <span>Day 4 highlight · Learning how the city prepares for emergencies</span>
+        <span style="font-size:0.78rem;color:var(--muted);">
+          “Behind every safe city is careful planning and coordination.”
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <section id="timeline">
+    <div class="section-label">Day 4 Timeline</div>
+    <h2 class="section-title">A Day in My Life on Tour – Day 4</h2>
+    <p class="section-subtitle">
+      Our final day mixed one last important educational stop with sightseeing and goodbyes.
+    </p>
+
+    <div class="day-layout">
+      <div class="day-timeline">
+
+        <!-- CDRRMO visit -->
+        <article class="day-step day-step--company">
+          <div class="day-step-img">
+            <img src="imageday4-cdrrmo.jpg" alt="City Disaster Risk Reduction and Management Office Tagbilaran">
+          </div>
+          <div class="day-step-body">
+            <div class="day-step-time">9:00 AM — Educational Visit</div>
+            <h3 class="day-step-title">CDRRM Office – Keeping the City Prepared</h3>
+            <p class="day-step-desc">
+              Our final official stop was the City Disaster Risk Reduction and Management Office in Tagbilaran,
+              where we learned how the city prepares for emergencies and disasters.
+            </p>
+
+            <div class="company-section">
+              <div class="company-meta">
+                <span class="company-name">
+                  City Disaster Risk Reduction and Management Office (CDRRM), Tagbilaran
+                </span>
+                <!-- Facilitator name not given, so we can leave this out or write “Facilitator: —” -->
+              </div>
+              <p class="company-info">
+                The CDRRM Office is responsible for planning, coordinating, and leading the city’s response
+                to disasters such as typhoons, floods, earthquakes, and other emergencies.
+              </p>
+              <p class="company-note">
+                <span class="company-note-label">My Observation</span>
+                I observed how much preparation is needed behind the scenes: risk mapping, communication systems,
+                drills, and coordination with different departments and communities.
+              </p>
+              <p class="company-note">
+                <span class="company-note-label">What I Learned</span>
+                I learned that information systems, communication tools, and well-trained people all work together
+                to save lives. Technology is not only for business—it can also protect communities.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Tourist spots -->
+        <article class="day-step">
+          <div class="day-step-img">
+            <img src="imageday4-tour.jpg" alt="Tourist spots in Bohol">
+          </div>
+          <div class="day-step-body">
+            <div class="day-step-time">11:00 AM — Bohol Tour</div>
+            <h3 class="day-step-title">Last Stops Around Bohol</h3>
+            <p class="day-step-desc">
+              After the CDRRM visit, we spent time visiting more tourist spots in Bohol—taking our last photos,
+              buying small souvenirs, and enjoying the scenery.
+            </p>
+          </div>
+        </article>
+
+        <!-- Lunch -->
+        <article class="day-step">
+          <div class="day-step-img">
+            <img src="imageday4-lunch.jpg" alt="Last lunch on tour">
+          </div>
+          <div class="day-step-body">
+            <div class="day-step-time">1:00 PM — Lunch</div>
+            <h3 class="day-step-title">Final Lunch Together</h3>
+            <p class="day-step-desc">
+              Our last lunch on tour felt more sentimental. Conversations shifted from what we were doing that day
+              to what we would remember the most.
+            </p>
+          </div>
+        </article>
+
+        <!-- Travel home -->
+        <article class="day-step">
+          <div class="day-step-img">
+            <img src="imageday4-travel.jpg" alt="On the way back home">
+          </div>
+          <div class="day-step-body">
+            <div class="day-step-time">3:00 PM — Travel Back</div>
+            <h3 class="day-step-title">The Road (and Air) Back Home</h3>
+            <p class="day-step-desc">
+              As we traveled back, some of us slept while others looked through photos and videos.
+              It was a quiet time to process everything we had seen and learned.
+            </p>
+          </div>
+        </article>
+      </div>
+
+      <aside class="day-side-card">
+        <div>
+          <div class="side-section-title">What Day 4 Taught Me</div>
+          <p class="side-text">
+            Day 4 reminded me that every trip has an end, but the lessons last longer. Learning about disaster
+            preparedness showed me that technology and planning play a very real role in protecting people.
+          </p>
+        </div>
+
+        <div>
+          <div class="side-section-title">Key Takeaways</div>
+          <ul class="side-list">
+            <li>Preparedness is built long before disasters actually happen.</li>
+            <li>Data, communication, and coordination save lives.</li>
+            <li>Endings are also beginnings—for new plans and goals.</li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="side-section-title">Day 4 Keywords</div>
+          <div class="tag-cloud">
+            <span class="tag-pill">CDRRM Tagbilaran</span>
+            <span class="tag-pill">Disaster Preparedness</span>
+            <span class="tag-pill">Bohol Tour</span>
+            <span class="tag-pill">Homecoming</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+  <footer class="footer">
+    Day 4 · Cebu/Bohol Educational Tour Portfolio · Created by Janna Pangan
+  </footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Educational Tour Portfolio – Cebu & Bohol</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Hover Preview that follows cursor -->
+  <div class="hover-preview" id="hoverPreview">
+    <div class="hover-preview-inner">
+      <img src="" alt="Day preview" id="hoverPreviewImg" />
+    </div>
+  </div>
+
+  <!-- Modal for "View More" and photo view -->
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal" role="dialog" aria-modal="true">
+      <div class="modal-header">
+        <div class="modal-title" id="modalTitle">Title</div>
+        <button class="modal-close" id="modalClose" aria-label="Close">
+          ×
+        </button>
+      </div>
+      <div class="modal-body">
+        <p id="modalText"></p>
+        <div class="day-timeline" id="modalDayTimeline"></div>
+        <div class="modal-photo" id="modalPhotoWrapper" style="display: none;">
+          <img src="" alt="Detail" id="modalImg" />
+        </div>
+        <div class="modal-meta" id="modalMeta"></div>
+      </div>
+    </div>
+  </div>
+
+  <header>
+    <nav class="nav">
+      <div class="nav-logo">EDUC TOUR · PORTFOLIO</div>
+      <div class="nav-links">
+        <a href="#hero">Intro</a>
+        <a href="#about">About Tour</a>
+        <a href="#timeline">4-Day Timeline</a>
+        <a href="#gallery">Photo Gallery</a>
+        <a href="journal.html">Printed Journal</a>
+        <a href="certificate.html" class="nav-active">Certificate</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section id="hero">
+      <div class="hero-wrapper">
+        <div class="hero-text">
+          <div class="hero-pill">
+            <span class="hero-pill-dot"></span>
+            <span>Field Exposure · Cebu & Bohol</span>
+          </div>
+          <h1 class="hero-heading-main">
+            My <span class="hero-heading-accent">Educational Tour</span> Experience
+          </h1>
+          <p class="hero-subheading">
+            Four days. Two islands. One unforgettable journey as a student exploring Cebu
+            and Bohol—documented not just in photos, but in stories, moments, and lessons learned.
+          </p>
+          <div class="hero-meta">
+            <span class="meta-tag">Student Educational Tour</span>
+            <span class="meta-tag">Cebu · Bohol · 4 Days</span>
+            <span class="meta-tag">Photo Documentation</span>
+          </div>
+          <div class="hero-cta">
+            <button class="btn-primary" onclick="document.querySelector('#timeline').scrollIntoView({behavior:'smooth'})">
+              Explore the 4-Day Story
+              <span class="btn-icon">↘</span>
+            </button>
+            <button class="btn-ghost" onclick="document.querySelector('#gallery').scrollIntoView({behavior:'smooth'})">
+              View Photo Highlights
+            </button>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="hero-parallax-layer bg"></div>
+          <div class="hero-parallax-layer glow"></div>
+          <div class="hero-card-overlay">
+            <div class="hero-snapshot">
+              <div class="snapshot-photo">
+                <!-- TODO: Replace with one of your favorite tour photos -->
+                <img src="imageboat-tour.jpg" alt="Boat tour snapshot" />
+              </div>
+              <div>
+                <div class="snapshot-title">Cebu–Bohol Educational Tour</div>
+                <div style="font-size:0.78rem;color:var(--muted);">
+                  A quick glimpse of my 4-day journey as a student.
+                </div>
+              </div>
+              <div class="snapshot-meta">
+                <span>4 Days · 2 Provinces</span>
+                <span>Academic & Cultural Exposure</span>
+              </div>
+            </div>
+
+            <div class="hero-pill-floating">
+              <span style="font-size:0.8rem;">“Every stop was a new lesson beyond the classroom.”</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT THE EDUCATIONAL TOUR (BENTO GRID) -->
+    <section id="about">
+      <div class="section-label">About the Tour</div>
+      <h2 class="section-title">What Made This Educational Tour Special?</h2>
+      <p class="section-subtitle">
+        Instead of a plain report, this portfolio is a visual story of how Cebu and Bohol
+        became my outdoor classroom—from city lights and historical landmarks to sea breeze
+        and quiet reflection.
+      </p>
+
+      <div class="bento-grid">
+        <!-- STORY OVERVIEW -->
+        <article class="bento-item bento-item--wide bento-item--highlight">
+          <div>
+            <div class="bento-label">Big Picture</div>
+            <h3 class="bento-title">From Classroom Seat to Island Streets</h3>
+            <p class="bento-text">
+              Our educational tour turned theories from lectures into real-life
+              experiences—company visits, cultural sites, and bonding moments that made me
+              see learning in a new way.
+            </p>
+          </div>
+          <div class="bento-chip-row">
+            <span class="bento-chip">Hands-on Learning</span>
+            <span class="bento-chip">New Environment</span>
+            <span class="bento-chip">Real-World Exposure</span>
+          </div>
+          <div class="bento-img-bg"
+               style="background-image:url('images/cebu-night.jpg');">
+            <!-- TODO: Replace background image -->
+          </div>
+        </article>
+
+        <!-- OBJECTIVES -->
+        <article class="bento-item">
+          <div>
+            <div class="bento-label">Goals</div>
+            <h3 class="bento-title">Tour Objectives</h3>
+            <p class="bento-text">
+              To observe real business operations, appreciate local tourism, and understand how different
+              industries work in Cebu and Bohol.
+            </p>
+          </div>
+          <div class="bento-chip-row">
+            <span class="bento-chip">Company Visits</span>
+            <span class="bento-chip">Tourism Awareness</span>
+          </div>
+          <div class="bento-img-bg"
+               style="background-image:url('images/company-visit.jpg');">
+          </div>
+        </article>
+
+        <!-- ROLE AS STUDENT -->
+        <article class="bento-item">
+          <div>
+            <div class="bento-label">My Role</div>
+            <h3 class="bento-title">Seeing Through a Student’s Eyes</h3>
+            <p class="bento-text">
+              I documented each day—from early call times to late-night reflections—capturing not just where we went,
+              but how it felt.
+            </p>
+          </div>
+          <div class="bento-chip-row">
+            <span class="bento-chip">Observer</span>
+            <span class="bento-chip">Participant</span>
+            <span class="bento-chip">Storyteller</span>
+          </div>
+          <div class="bento-img-bg"
+               style="background-image:url('images/student-notes.jpg');">
+          </div>
+        </article>
+
+        <!-- HIGHLIGHT MOMENT -->
+        <article class="bento-item bento-item--tall">
+          <div>
+            <div class="bento-label">Highlight</div>
+            <h3 class="bento-title">Standing on the Viewing Deck</h3>
+            <p class="bento-text">
+              One of my favorite moments was standing on a high viewpoint, feeling the wind and realizing how far
+              I’d come—not just in distance, but in growth.
+            </p>
+          </div>
+          <div class="bento-chip-row">
+            <span class="bento-chip">Reflection</span>
+            <span class="bento-chip">Self-Growth</span>
+          </div>
+          <div class="bento-img-bg"
+               style="background-image:url('images/bohol-view.jpg');">
+          </div>
+        </article>
+
+        <!-- PEOPLE & BONDING -->
+        <article class="bento-item bento-item--wide">
+          <div>
+            <div class="bento-label">Connections</div>
+            <h3 class="bento-title">Friends, Laughter, and Late-Night Talks</h3>
+            <p class="bento-text">
+              Beyond the academic purpose, this tour strengthened friendships—shared snacks, inside jokes,
+              group photos, and the feeling of “we were here together.”
+            </p>
+          </div>
+          <div class="bento-chip-row">
+            <span class="bento-chip">Teamwork</span>
+            <span class="bento-chip">Memories</span>
+            <span class="bento-chip">Shared Experience</span>
+          </div>
+          <div class="bento-img-bg"
+               style="background-image:url('images/group-photo.jpg');">
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- 4-DAY TIMELINE -->
+    <section id="timeline">
+      <div class="section-label">Timeline</div>
+      <h2 class="section-title">4-Day Tour Timeline</h2>
+      <p class="section-subtitle">
+        Hover over each day to see a quick preview that follows your cursor. Click
+        <strong>“View more”</strong> to open a detailed look at that part of the journey.
+      </p>
+
+      <div class="timeline">
+        <div class="timeline-strip"></div>
+        <div class="timeline-list">
+          <!-- DAY 1 -->
+          <article class="timeline-item"
+                   data-title="Day 1 – Departure & First Impressions of Cebu"
+                   data-day="1"
+                   data-image="imageday1-cebu.jpg"
+                   data-description="This was the beginning of the journey—early call time, luggage everywhere, excited faces, and that mix of nervousness and excitement. Arriving in Cebu, I immediately noticed how busy yet vibrant the city felt compared to what I was used to."
+                   data-meta="Highlights: Travel to Cebu · First city tour · Check-in at accommodation.">
+            <div class="timeline-day">Day 1</div>
+            <h3 class="timeline-title">Departure & Cebu City Arrival</h3>
+            <p class="timeline-desc">
+              Early departure, settling in, and our first official glimpse of Cebu.
+            </p>
+            <div class="timeline-tags">
+              <span class="timeline-tag">Travel</span>
+              <span class="timeline-tag">First Impressions</span>
+            </div>
+            <div class="timeline-footer">
+              <span class="timeline-time">From Home → Cebu City</span>
+              <a href="day1.html" class="timeline-view">
+                View more <span class="timeline-view-icon">→</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- DAY 2 -->
+          <article class="timeline-item"
+                   data-title="Day 2 – Company Visits & City Discoveries"
+                   data-day="2"
+                   data-image="imageday2-company.jpg"
+                   data-description="We visited companies and facilities that allowed us to see how theories from class apply in real operations—systems, processes, and people at work. Afterward, we got to explore parts of Cebu City, discovering street food, landmarks, and the rhythm of city life."
+                   data-meta="Highlights: Company tours · City sightseeing · Group reflections.">
+            <div class="timeline-day">Day 2</div>
+            <h3 class="timeline-title">Industry Exposure & City Tour</h3>
+            <p class="timeline-desc">
+              Real-world business operations plus an afternoon exploring Cebu.
+            </p>
+            <div class="timeline-tags">
+              <span class="timeline-tag">Company Visits</span>
+              <span class="timeline-tag">City Tour</span>
+            </div>
+            <div class="timeline-footer">
+              <span class="timeline-time">Cebu: Morning–Evening</span>
+              <a href="day2.html" class="timeline-view">
+                View more <span class="timeline-view-icon">→</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- DAY 3 -->
+          <article class="timeline-item"
+                   data-title="Day 3 – Crossing to Bohol & Scenic Spots"
+                   data-day="3"
+                   data-image="imageday3-bohol.jpg"
+                   data-description="The boat ride to Bohol felt like entering another chapter—calmer, more scenic, and full of natural wonders. From viewpoints to tourist spots, every stop made me appreciate how beautiful the Philippines truly is."
+                   data-meta="Highlights: Boat ride · Bohol countryside · Tourist attractions.">
+            <div class="timeline-day">Day 3</div>
+            <h3 class="timeline-title">Bohol Adventure & Nature Sights</h3>
+            <p class="timeline-desc">
+              A change of scenery—sea, landscapes, and a slower, calmer feeling.
+            </p>
+            <div class="timeline-tags">
+              <span class="timeline-tag">Island Hopping</span>
+              <span class="timeline-tag">Nature</span>
+            </div>
+            <div class="timeline-footer">
+              <span class="timeline-time">Cebu → Bohol</span>
+                <a href="day3.html" class="timeline-view">
+                    View more <span class="timeline-view-icon">→</span>
+                </a>
+            </div>
+          </article>
+
+          <!-- DAY 4 -->
+          <article class="timeline-item"
+                   data-title="Day 4 – Last Day, Reflections & Return Home"
+                   data-day="4"
+                   data-image="imageday4-last.jpg"
+                   data-description="Packing up was bittersweet. On the way home, I felt grateful—tired, but fulfilled. This tour didn’t just fill a requirement; it reminded me why I chose my course and what kind of future I want to build."
+                   data-meta="Highlights: Final stopovers · Travel back home · Personal reflections.">
+            <div class="timeline-day">Day 4</div>
+            <h3 class="timeline-title">Closing the Journey</h3>
+            <p class="timeline-desc">
+              Goodbyes, final photos, and taking home more than just souvenirs.
+            </p>
+            <div class="timeline-tags">
+              <span class="timeline-tag">Reflection</span>
+              <span class="timeline-tag">Homecoming</span>
+            </div>
+            <div class="timeline-footer">
+              <span class="timeline-time">Bohol → Home</span>
+                <a href="day4.html" class="timeline-view">
+                    View more <span class="timeline-view-icon">→</span>
+                </a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- PHOTO GALLERY -->
+    <section id="gallery">
+      <div class="section-label">Photo Gallery</div>
+      <h2 class="section-title">Snapshots that Tell the Story</h2>
+      <p class="section-subtitle">
+        A simple gallery that moves on its own. Hover and click on any photo to view it
+        more clearly and read a short note about that moment.
+      </p>
+
+      <div class="gallery-wrapper">
+        <div class="gallery-strip" id="galleryStrip">
+          <!-- Repeatable gallery items.
+               TODO: Replace src and data details with your real photos. -->
+
+          <div class="gallery-item"
+               data-title="Ready to Go"
+               data-description="Bags packed, IDs on lanyards, and everyone buzzing with energy before departure."
+               data-meta="Pre-departure · Waiting area"
+               data-image="imagegallery1.jpg">
+            <img src="imagegallery1.jpg" alt="Pre-departure" />
+            <div class="gallery-caption">Pre-departure energy</div>
+          </div>
+
+          <div class="gallery-item"
+               data-title="Cebu City Lights"
+               data-description="Our first night in Cebu—city lights glowing."
+               data-meta="Cebu City · First night"
+               data-image="imagegallery2.jpg">
+            <img src="imagegallery2.jpg" alt="Cebu night" />
+            <div class="gallery-caption">First night in Cebu</div>
+          </div>
+
+          <div class="gallery-item"
+               data-title="Inside the Company"
+               data-description="Listening to professionals explain their daily operations made the lessons feel real."
+               data-meta="Company visit · Facility tour"
+               data-image="imagegallery3.jpg">
+            <img src="imagegallery3.jpg" alt="Company tour" />
+            <div class="gallery-caption">Company visit</div>
+          </div>
+
+          <div class="gallery-item"
+               data-title="Group Photo Moment"
+               data-description="We paused between activities to take this group shot—one of my favorite memories."
+               data-meta="Friends · Team photo"
+               data-image="imagegallery4.jpg">
+            <img src="imagegallery4.jpg" alt="Group photo" />
+            <div class="gallery-caption">Team photo</div>
+          </div>
+
+          <div class="gallery-item"
+               data-title="Bohol Viewpoint"
+               data-description="The view from here was breathtaking—a reminder of how beautiful the journey was."
+               data-meta="Bohol · View deck"
+               data-image="imagegallery5.jpg">
+            <img src="imagegallery5.jpg" alt="Bohol view" />
+            <div class="gallery-caption">Bohol scenery</div>
+          </div>
+
+          <div class="gallery-item"
+               data-title="Boat Ride"
+               data-description="The sound of the waves and the wind made this one of the most peaceful parts of the tour."
+               data-meta="Sea travel · Between islands"
+               data-image="imagegallery6.jpg">
+            <img src="imagegallery6.jpg" alt="Boat ride" />
+            <div class="gallery-caption">Boat ride to Bohol</div>
+          </div>
+
+          <div class="gallery-item"
+               data-title="Last Day Reflections"
+               data-description="On the way home, everyone was quiet—tired, but smiling. We knew we’d remember this."
+               data-meta="Travel back · Reflections"
+               data-image="imagegallery7.jpg">
+            <img src="imagegallery7.jpg" alt="Last day reflections" />
+            <div class="gallery-caption">Heading home</div>
+          </div>
+
+          <!-- Duplicate some items at the end to make the auto scroll loop smoother -->
+          <div class="gallery-item"
+               data-title="Cebu City Lights"
+               data-description="Our first night in Cebu—city lights glowing as we rode through the busy streets."
+               data-meta="Cebu City · First night"
+               data-image="imagegallery2.jpg">
+            <img src="imagegallery2.jpg" alt="Cebu night repeat" />
+            <div class="gallery-caption">First night in Cebu</div>
+          </div>
+
+          <div class="gallery-item"
+               data-title="Bohol Viewpoint"
+               data-description="The view from here was breathtaking—a reminder of how beautiful the journey was."
+               data-meta="Bohol · View deck"
+               data-image="imagegallery5.jpg">
+            <img src="imagegallery5.jpg" alt="Bohol view repeat" />
+            <div class="gallery-caption">Bohol scenery</div>
+          </div>
+        </div>
+
+        <div class="gallery-hint">
+          Auto-scroll on ✨
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div>
+        <span class="pill-soft">
+          <span class="pill-dot"></span>
+          <span>Educational Tour · Cebu & Bohol · 4 Days</span>
+        </span>
+      </div>
+      <div style="margin-top:0.6rem;">
+        Portfolio created as a student reflection — turning field exposure into a visual story.
+      </div>
+    </footer>
+  </main>
+      <script src="script.js"></script>
+</body>
+</html>

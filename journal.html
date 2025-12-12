@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Printed Journal – Cebu & Bohol Educational Tour</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<style>
+  :root {
+    --bg: #F0F9FF;
+    --bg-soft: #BFE3FC;
+    --accent: #ACAD2B;
+    --accent-soft: rgba(172, 173, 43, 0.22);
+    --text: #28361F;
+    --muted: #596115;
+    --card: #ffffff;
+    --border: rgba(40, 54, 31, 0.18);
+    --radius-xl: 18px;
+    --shadow-soft: 0 18px 45px rgba(40, 54, 31, 0.18);
+  }
+
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body {
+    font-family: system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    background: radial-gradient(circle at top, #BFE3FC 0, #F0F9FF 45%, #ACAD2B20 100%);
+    color: var(--text);
+    line-height: 1.6;
+    scroll-behavior:smooth;
+  }
+  img { max-width:100%; display:block; }
+  a { color:inherit; text-decoration:none; }
+
+  main {
+    width:100%;
+    max-width:1120px;
+    margin:0 auto;
+    padding:0 1.2rem 4rem;
+  }
+
+  /* header */
+  header{
+    position:sticky; top:0; z-index:40;
+    backdrop-filter:blur(18px);
+    background:linear-gradient(to bottom,
+      rgba(240,249,255,0.97),
+      rgba(240,249,255,0.78),
+      transparent);
+    border-bottom:1px solid rgba(172,173,43,0.28);
+  }
+  .nav{
+    max-width:1120px;
+    margin:0 auto;
+    padding:0.7rem 1.2rem;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:1.5rem;
+  }
+  .nav-logo{
+    font-weight:700;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    font-size:0.85rem;
+    color:var(--muted);
+  }
+  .nav-links{
+    display:flex;
+    align-items:center;
+    gap:1rem;
+    font-size:0.88rem;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+  }
+  .nav-links a{
+    padding:0.35rem 0.85rem;
+    border-radius:999px;
+    border:1px solid transparent;
+    color:var(--muted);
+    transition:background 0.2s,border 0.2s,transform 0.15s;
+    white-space:nowrap;
+  }
+  .nav-links a:hover{
+    background:rgba(191,227,252,0.9);
+    border-color:rgba(172,173,43,0.4);
+    transform:translateY(-1px);
+  }
+  .nav-links a.nav-active{
+    background: #ffffff;
+    border-color: rgba(172,173,43,0.65);
+  }
+
+  /* section titles */
+  section { margin-block:3.2rem; }
+  .section-label{
+    text-transform:uppercase;
+    font-size:0.8rem;
+    letter-spacing:0.18em;
+    color:var(--muted);
+    margin-bottom:0.6rem;
+  }
+  .section-title{
+    font-size:clamp(2rem,3vw+1rem,2.6rem);
+    margin-bottom:0.8rem;
+  }
+  .section-subtitle{
+    max-width:680px;
+    color:var(--muted);
+    font-size:0.96rem;
+  }
+
+  /* ===== Gallery layout (new) ===== */
+  .gallery-shell{
+    margin-top: 1.6rem;
+    border-radius: 26px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-soft);
+    background: radial-gradient(circle at top, #f0f9ff, #ffffff 60%);
+    padding: 1.1rem;
+  }
+
+  .gallery-toolbar{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap:1rem;
+    flex-wrap:wrap;
+    padding:0.5rem 0.35rem 1rem;
+  }
+  .gallery-toolbar .hint{
+    color: var(--muted);
+    font-size: 0.9rem;
+    max-width: 720px;
+  }
+  .gallery-toolbar .chips{
+    display:flex;
+    gap:0.45rem;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+  }
+  .chip{
+    display:inline-flex;
+    align-items:center;
+    gap:0.45rem;
+    padding:0.28rem 0.7rem;
+    border-radius:999px;
+    background:#ffffff;
+    border:1px solid rgba(172,173,43,0.65);
+    font-size:0.78rem;
+    color:var(--muted);
+  }
+  .chip-dot{
+    width:7px;height:7px;border-radius:50%;
+    background: var(--accent);
+  }
+
+  .journal-scan-grid{
+    display:grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1rem;
+  }
+
+  /* big hero tile on first item (optional nice look) */
+  .journal-page{
+    grid-column: span 4;
+    border-radius: 18px;
+    overflow:hidden;
+    background:#ffffff;
+    border:1px solid rgba(172,173,43,0.4);
+    box-shadow: 0 14px 32px rgba(40,54,31,0.15);
+    cursor: zoom-in;
+    transition: transform 0.15s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    position: relative;
+  }
+  .journal-page:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 18px 42px rgba(40,54,31,0.22);
+    border-color: rgba(172,173,43,0.75);
+  }
+
+  .journal-page img{
+    width:100%;
+    height: 240px;
+    object-fit: cover;
+    background: #e5ecda;
+  }
+
+  .journal-page figcaption{
+    padding: 0.65rem 0.8rem 0.75rem;
+    font-size: 0.86rem;
+    color: var(--muted);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:0.75rem;
+  }
+  .journal-page figcaption span{
+    display:inline-flex;
+    align-items:center;
+    gap:0.45rem;
+  }
+  .badge-view{
+    font-size:0.75rem;
+    padding:0.18rem 0.55rem;
+    border-radius:999px;
+    border:1px solid rgba(172,173,43,0.65);
+    background: rgba(172,173,43,0.10);
+    color: var(--muted);
+    white-space:nowrap;
+  }
+
+  /* make first tile bigger for a "cool" layout */
+  .journal-page.is-feature{
+    grid-column: span 8;
+  }
+  .journal-page.is-feature img{
+    height: 320px;
+  }
+
+  @media(max-width: 980px){
+    .journal-page{ grid-column: span 6; }
+    .journal-page.is-feature{ grid-column: span 12; }
+  }
+  @media(max-width: 640px){
+    .journal-page{ grid-column: span 12; }
+    .journal-page img{ height: 260px; }
+  }
+
+  /* ===== Modal (new) ===== */
+  .modal{
+    position: fixed;
+    inset: 0;
+    display: none;
+    z-index: 80;
+  }
+  .modal.show{ display:block; }
+
+  .modal-backdrop{
+    position:absolute;
+    inset:0;
+    background: rgba(40,54,31,0.55);
+    backdrop-filter: blur(4px);
+  }
+
+  .modal-dialog{
+    position: relative;
+    width: min(980px, calc(100% - 2rem));
+    margin: 4rem auto;
+    border-radius: 22px;
+    background: rgba(240,249,255,0.98);
+    border: 1px solid rgba(172,173,43,0.65);
+    box-shadow: 0 30px 80px rgba(40,54,31,0.28);
+    padding: 0.9rem;
+  }
+
+  .modal-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:1rem;
+    padding: 0.35rem 0.35rem 0.75rem;
+  }
+  .modal-title{
+    font-size: 0.95rem;
+    color: var(--muted);
+    display:flex;
+    align-items:center;
+    gap:0.5rem;
+  }
+  .modal-title .dot{
+    width:8px;height:8px;border-radius:50%;
+    background: var(--accent);
+  }
+
+  .modal-close{
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    border: 1px solid rgba(172,173,43,0.75);
+    background: #ffffff;
+    color: var(--muted);
+    font-size: 22px;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease;
+  }
+  .modal-close:hover{
+    background: #f0f9ff;
+    transform: scale(1.03);
+    box-shadow: 0 14px 30px rgba(40,54,31,0.22);
+  }
+
+  .modal-image{
+    width: 100%;
+    max-height: 72vh;
+    object-fit: contain;
+    border-radius: 18px;
+    border: 1px solid rgba(40,54,31,0.18);
+    background: radial-gradient(circle at top, #BFE3FC 0, #F0F9FF 60%, #ffffff 100%);
+  }
+
+  .modal-caption{
+    padding: 0.75rem 0.35rem 0.35rem;
+    color: var(--muted);
+    font-size: 0.92rem;
+    text-align: center;
+  }
+
+  /* footer */
+  .pill-soft{
+    display:inline-flex;
+    align-items:center;
+    gap:0.35rem;
+    padding:0.26rem 0.7rem;
+    border-radius:999px;
+    background:#ffffff;
+    border:1px solid rgba(172,173,43,0.6);
+    font-size:0.78rem;
+    color:var(--muted);
+  }
+  .pill-dot{
+    width:7px;height:7px;border-radius:50%;
+    background:var(--accent);
+  }
+  .footer{
+    text-align:center;
+    font-size:0.8rem;
+    color:var(--muted);
+    margin-top:2rem;
+    padding-bottom:0.5rem;
+  }
+</style>
+</head>
+
+<body>
+
+<header>
+  <nav class="nav">
+    <div class="nav-logo">EDUC TOUR · PORTFOLIO</div>
+    <div class="nav-links">
+      <a href="index.html#hero">Intro</a>
+      <a href="index.html#about">About Tour</a>
+      <a href="index.html#timeline">4-Day Timeline</a>
+      <a href="index.html#gallery">Photo Gallery</a>
+      <a href="journal.html" class="nav-active">Printed Journal</a>
+      <a href="certificate.html">Certificate</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <section id="journal" style="padding: 2.5rem 0 0;">
+    <div class="section-label">PRINTED JOURNAL</div>
+    <h2 class="section-title">Scanned Pages of My Tour Journal</h2>
+    <p class="section-subtitle">
+      These are the photographs of my printed travel journal created during the Cebu &amp; Bohol educational tour.
+      Click any page to zoom in.
+    </p>
+
+    <div class="gallery-shell">
+      <div class="gallery-toolbar">
+        <div class="hint">
+          Tip: Tap a page to open it in a full-size viewer. Press <strong>Esc</strong> to close.
+        </div>
+        <div class="chips">
+          <span class="chip"><span class="chip-dot"></span>Journal</span>
+          <span class="chip"><span class="chip-dot"></span>Gallery View</span>
+          <span class="chip"><span class="chip-dot"></span>Zoom Modal</span>
+        </div>
+      </div>
+
+      <div class="journal-scan-grid">
+        <!-- Feature tile (cool layout) -->
+        <figure class="journal-page is-feature" data-full="imagejournal1.jpg" data-caption="Journal Page 1">
+          <img src="imagejournal1.jpg" alt="Journal Page 1">
+          <figcaption>
+            <span><span class="pill-dot"></span>Journal Page 1</span>
+            <span class="badge-view">Click to view</span>
+          </figcaption>
+        </figure>
+
+        <figure class="journal-page" data-full="imagejournal2.jpg" data-caption="Journal Page 2">
+          <img src="imagejournal2.jpg" alt="Journal Page 2">
+          <figcaption><span><span class="pill-dot"></span>Journal Page 2</span><span class="badge-view">View</span></figcaption>
+        </figure>
+
+        <figure class="journal-page" data-full="imagejournal3.jpg" data-caption="Journal Page 3">
+          <img src="imagejournal3.jpg" alt="Journal Page 3">
+          <figcaption><span><span class="pill-dot"></span>Journal Page 3</span><span class="badge-view">View</span></figcaption>
+        </figure>
+
+        <figure class="journal-page" data-full="imagejournal4.jpg" data-caption="Journal Page 4">
+          <img src="imagejournal4.jpg" alt="Journal Page 4">
+          <figcaption><span><span class="pill-dot"></span>Journal Page 4</span><span class="badge-view">View</span></figcaption>
+        </figure>
+
+        <figure class="journal-page" data-full="imagejournal5.jpg" data-caption="Journal Page 5">
+          <img src="imagejournal5.jpg" alt="Journal Page 5">
+          <figcaption><span><span class="pill-dot"></span>Journal Page 5</span><span class="badge-view">View</span></figcaption>
+        </figure>
+
+        <figure class="journal-page" data-full="imagejournal8.jpg" data-caption="Journal Page 6">
+          <img src="imagejournal6.jpg" alt="Journal Page 6">
+          <figcaption><span><span class="pill-dot"></span>Journal Page 6</span><span class="badge-view">View</span></figcaption>
+        </figure>
+
+        <figure class="journal-page" data-full="imagejournal6.jpg" data-caption="Journal Page 7">
+          <img src="imagejournal7.jpg" alt="Journal Page 7">
+          <figcaption><span><span class="pill-dot"></span>Journal Page 7</span><span class="badge-view">View</span></figcaption>
+        </figure>
+
+        <figure class="journal-page" data-full="imagejournal7.jpg" data-caption="Journal Page 8">
+          <img src="imagejournal8.jpg" alt="Journal Page 8">
+          <figcaption><span><span class="pill-dot"></span>Journal Page 8</span><span class="badge-view">View</span></figcaption>
+        </figure>
+
+          <figure class="journal-page" data-full="imagejournal7.jpg" data-caption="Journal Page 8">
+          <img src="imagejournal9.jpg" alt="Journal Page 9">
+          <figcaption><span><span class="pill-dot"></span>Journal Page 9</span><span class="badge-view">View</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div>
+      <span class="pill-soft">
+        <span class="pill-dot"></span>
+        <span>Educational Tour · Cebu &amp; Bohol · 4 Days</span>
+      </span>
+    </div>
+    <div style="margin-top:0.6rem;">
+      Portfolio created for documenting insights, learning, and personal experiences.
+    </div>
+  </footer>
+</main>
+
+<!-- Modal -->
+<div class="modal" id="imageModal" aria-hidden="true">
+  <div class="modal-backdrop" data-close="true"></div>
+  <div class="modal-dialog" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <div class="modal-top">
+      <div class="modal-title"><span class="dot"></span><span id="modalTitle">Preview</span></div>
+      <button class="modal-close" id="closeModalBtn" aria-label="Close">×</button>
+    </div>
+    <img class="modal-image" id="modalImage" src="" alt="Expanded view">
+    <div class="modal-caption" id="modalCaption"></div>
+  </div>
+</div>
+
+<script>
+  const modal = document.getElementById("imageModal");
+  const modalImg = document.getElementById("modalImage");
+  const modalCaption = document.getElementById("modalCaption");
+  const modalTitle = document.getElementById("modalTitle");
+  const closeBtn = document.getElementById("closeModalBtn");
+
+  function openModal(src, caption){
+    modalImg.src = src;
+    modalCaption.textContent = caption || "";
+    modalTitle.textContent = caption || "Preview";
+    modal.classList.add("show");
+    modal.setAttribute("aria-hidden","false");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeModal(){
+    modal.classList.remove("show");
+    modal.setAttribute("aria-hidden","true");
+    modalImg.src = "";
+    modalCaption.textContent = "";
+    document.body.style.overflow = "";
+  }
+
+  document.querySelectorAll(".journal-page").forEach(card=>{
+    card.addEventListener("click", ()=>{
+      openModal(card.dataset.full, card.dataset.caption);
+    });
+  });
+
+  closeBtn.addEventListener("click", closeModal);
+
+  modal.addEventListener("click", (e)=>{
+    if(e.target.matches("[data-close='true']")) closeModal();
+  });
+
+  document.addEventListener("keydown", (e)=>{
+    if(e.key === "Escape" && modal.classList.contains("show")) closeModal();
+  });
+</script>
+
+</body>
+</html>
